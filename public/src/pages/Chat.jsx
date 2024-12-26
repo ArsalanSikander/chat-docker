@@ -7,6 +7,7 @@ import { allUsersRoute, host } from "../utils/APIRoutes";
 import ChatContainer from "../components/ChatContainer";
 import Contacts from "../components/Contacts";
 import Welcome from "../components/Welcome";
+import Logout from "../components/Logout";
 
 export default function Chat() {
   const navigate = useNavigate();
@@ -48,6 +49,9 @@ export default function Chat() {
   return (
     <>
       <Container>
+          <div>
+            <Logout/>
+          </div>
         <div className="container">
           <Contacts contacts={contacts} changeChat={handleChatChange} />
           {currentChat === undefined ? (

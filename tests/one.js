@@ -2,7 +2,7 @@ const { Builder, By, Key, until } = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
 const driver = new Builder()
     .forBrowser('chrome')
-    .setChromeOptions(new chrome.Options().addArguments(`--webdriver.chrome.driver=E:/newDownloads/chromedriver-win64/chromedriver-win64/chromedriver.exe`))
+    .setChromeOptions(new chrome.Options().addArguments(`--webdriver.chrome.driver=/usr/bin/chromedriver-linux64/chromedriver.exe`).addArguments('--headless'))
     .build();
 
 
@@ -13,7 +13,7 @@ async function getPage(link) {
 
 async function waitForTitle(result) {
     if (result) {
-        await driver.wait(until.titleIs("React App"), 10000);
+        await driver.wait(until.titleIs("React App"), 50000);
         return true;
     }
 }
@@ -23,7 +23,7 @@ async function checkTitle(result) {
         await driver.getTitle().then(title => {
 
             if (title === 'React App') {
-                console.log("Test Passed!")
+                console.log("Test 1 - Page Load: Test Passed!")
             } else {
                 console.log("Test Failed! Title was <" + title + ">");
             }
@@ -38,7 +38,7 @@ async function example() {
 
     try {
 
-        const r1 = await getPage('http://localhost:3000/login');
+        const r1 = await getPage('http://localhost:80');
         const r2 = await waitForTitle(r1);
         const r3 = await checkTitle(r2);
 

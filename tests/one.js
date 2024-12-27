@@ -10,7 +10,7 @@ const driver = new Builder()
     .setChromeOptions(new chrome.Options().addArguments(`--webdriver.chrome.driver=${ubuntuDriverLocation}`).addArguments('--headless'))
     .build();
 
-let waitTime = 5000;
+let waitTime = 15000;
 
 async function getPage(link) {
     await driver.get(link);

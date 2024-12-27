@@ -11,7 +11,7 @@ const driver = new Builder()
     .setChromeOptions(new chrome.Options().addArguments(`--webdriver.chrome.driver=${ubuntuDriverLocation}`).addArguments('--headless'))
     .build();
 
-let waitTime = 15000;
+let waitTime = 1000;
 
 async function getPage(link) {
     await driver.get(link);
@@ -80,6 +80,7 @@ async function checkInvalidLogin(result) {
         try {
             // click on the login button with 
             let loginSubmitButton = await driver.findElement(By.css('button[type="submit"]'));
+            await driver.wait(until.elementIsVisible(loginSubmitButton),1000);
             let clickResult = await loginSubmitButton.click();
             await driver.manage().setTimeouts({ implicit: waitTime });
             // check if error box appears 
@@ -110,6 +111,7 @@ async function checkRegisterPage(result) {
     if (result) {
         try {
             let createAccountBtn = await driver.findElement(By.css('a[href="/register"]'));
+            await driver.wait(until.elementIsVisible(createAccountBtn), 1000);
             let clickResult = createAccountBtn.click();
             await driver.manage().setTimeouts({ implicit: waitTime });
             // now look for a username input
@@ -130,6 +132,9 @@ async function checkRegisterPage(result) {
 async function loginPageFromRegister(result) {
     try {
         let loginButton = await driver.findElement(By.css('a[href="/login"]'));
+        console.log("Waiting for login to be clickable...");
+        await driver.wait(until.elementIsVisible,5000);
+        console.log("Can click the login link now!");
         let clickResult = await loginButton.click();
         await driver.manage().setTimeouts({ implicit: waitTime });
 
@@ -155,6 +160,7 @@ async function loginAsTempUser(result) {
             let passwordField = await driver.findElement(By.css('input[name="password"]'));
             await passwordField.sendKeys('temp1234');
             let submitButton = await driver.findElement(By.css('button[type="submit"]'));
+            await driver.wait(until.elementIsVisible(submitButton),1000);
             await submitButton.click();
             // check if the chat page has arrived
             await driver.manage().setTimeouts({ implicit: waitTime });
@@ -178,7 +184,9 @@ async function loginAsTempUser(result) {
 async function showAChat(result) {
     if (result) {
         try {
+            
             let firstChat = await driver.findElement(By.className("contact"));
+            await driver.wait(until.elementIsVisible(firstChat),2000);
             await firstChat.click();
             await driver.manage().setTimeouts({ implicit: waitTime });
             let chatMessagesBox = await driver.findElement(By.className('chat-messages'));
@@ -205,6 +213,7 @@ async function sendMessage(result) {
             let messageField = await driver.findElement(By.css('.input-container input'));
             await messageField.sendKeys(messageContent);
             let sendButton = await driver.findElement(By.css('.input-container button'));
+            await driver.wait(until.elementIsVisible(sendButton), 1000);
             await sendButton.click();
             await driver.manage().setTimeouts({ implicit: waitTime });
             // confirm if message has been sent
@@ -232,6 +241,7 @@ async function switchChat(result) {
             let chats = await driver.findElements(By.className('contact'));
             let otherChat = chats[chats.length - 1];
             if (otherChat != null) {
+                await driver.wait(until.elementIsVisible(otherChat),1000);
                 await otherChat.click();
                 console.log('Test 9 - Switch Chat : Test Passed!');
                 return true;
@@ -253,6 +263,7 @@ async function logout(result) {
     if (result) {
         try {
             let loginButton = await driver.findElement(By.className('sc-eqUAAy'));
+            await driver.wait(until.elementIsVisible(loginButton), 1000);
             await loginButton.click();
             await driver.manage().setTimeouts({ implicit: waitTime });
             let loginUsernameInput = await driver.findElement(By.css('input[name="username"]'));

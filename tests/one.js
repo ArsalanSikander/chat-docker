@@ -1,9 +1,13 @@
 const { Builder, By, Key, until } = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
+
 let chromeDriverLocation = 'E:/newDownloads/chromedriver-win64/chromedriver-win64/chromedriver.exe'
+
+let ubuntuDriverLocation = '/usr/bin/chromedriver-linux64/chromedriver.exe';
+
 const driver = new Builder()
     .forBrowser('chrome')
-    .setChromeOptions(new chrome.Options().addArguments(`--webdriver.chrome.driver=${chromeDriverLocation}`).addArguments('--headless'))
+    .setChromeOptions(new chrome.Options().addArguments(`--webdriver.chrome.driver=${ubuntuDriverLocation}`).addArguments('--headless'))
     .build();
 
 let waitTime = 2000;
@@ -251,7 +255,7 @@ async function beginTesting() {
         // calling async functions which are tests sequentially
 
         // test 1
-        const r1 = await getPage('http://localhost:3000');
+        const r1 = await getPage('http://localhost:80');
         const r2 = await waitForTitle(r1);
         const r3 = await checkTitle(r2);
 

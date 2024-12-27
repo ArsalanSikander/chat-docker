@@ -8,7 +8,7 @@ let ubuntuDriverLocation = '/usr/bin/chromedriver-linux64/chromedriver.exe';
 const driver = new Builder()
     .forBrowser('chrome')
     // .setChromeOptions(new chrome.Options().addArguments(`--webdriver.chrome.driver=${chromeDriverLocation}`))
-    .setChromeOptions(new chrome.Options().addArguments(`--webdriver.chrome.driver=${ubuntuDriverLocation}`).addArguments('--headless'))
+    .setChromeOptions(new chrome.Options().addArguments(`--webdriver.chrome.driver=${ubuntuDriverLocation}`).addArguments('--headless=new').addArguments('--window-size=1920,1080'))
     .build();
 
 let waitTime = 1000;

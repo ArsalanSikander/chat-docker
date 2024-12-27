@@ -80,7 +80,7 @@ async function checkInvalidLogin(result) {
         try {
             // click on the login button with 
             let loginSubmitButton = await driver.findElement(By.css('button[type="submit"]'));
-            await driver.wait(until.elementIsVisible(loginSubmitButton),1000);
+            await driver.wait(until.elementIsVisible(loginSubmitButton), 1000);
             let clickResult = await loginSubmitButton.click();
             await driver.manage().setTimeouts({ implicit: waitTime });
             // check if error box appears 
@@ -133,7 +133,7 @@ async function loginPageFromRegister(result) {
     try {
         let loginButton = await driver.findElement(By.css('a[href="/login"]'));
         console.log("Waiting for login to be clickable...");
-        await driver.wait(until.elementIsVisible,5000);
+        await driver.wait(until.elementIsVisible(loginButton), 5000);
         console.log("Can click the login link now!");
         let clickResult = await loginButton.click();
         await driver.manage().setTimeouts({ implicit: waitTime });
@@ -160,7 +160,7 @@ async function loginAsTempUser(result) {
             let passwordField = await driver.findElement(By.css('input[name="password"]'));
             await passwordField.sendKeys('temp1234');
             let submitButton = await driver.findElement(By.css('button[type="submit"]'));
-            await driver.wait(until.elementIsVisible(submitButton),1000);
+            await driver.wait(until.elementIsVisible(submitButton), 1000);
             await submitButton.click();
             // check if the chat page has arrived
             await driver.manage().setTimeouts({ implicit: waitTime });
@@ -184,9 +184,9 @@ async function loginAsTempUser(result) {
 async function showAChat(result) {
     if (result) {
         try {
-            
+
             let firstChat = await driver.findElement(By.className("contact"));
-            await driver.wait(until.elementIsVisible(firstChat),2000);
+            await driver.wait(until.elementIsVisible(firstChat), 2000);
             await firstChat.click();
             await driver.manage().setTimeouts({ implicit: waitTime });
             let chatMessagesBox = await driver.findElement(By.className('chat-messages'));
@@ -241,7 +241,7 @@ async function switchChat(result) {
             let chats = await driver.findElements(By.className('contact'));
             let otherChat = chats[chats.length - 1];
             if (otherChat != null) {
-                await driver.wait(until.elementIsVisible(otherChat),1000);
+                await driver.wait(until.elementIsVisible(otherChat), 1000);
                 await otherChat.click();
                 console.log('Test 9 - Switch Chat : Test Passed!');
                 return true;

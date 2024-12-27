@@ -10,7 +10,7 @@ const driver = new Builder()
     .setChromeOptions(new chrome.Options().addArguments(`--webdriver.chrome.driver=${ubuntuDriverLocation}`).addArguments('--headless'))
     .build();
 
-let waitTime = 2000;
+let waitTime = 5000;
 
 async function getPage(link) {
     await driver.get(link);
@@ -60,7 +60,7 @@ async function checkInvalidLogin(result) {
             // click on the login button with 
             let loginSubmitButton = await driver.findElement(By.css('button[type="submit"]'));
             let clickResult = await loginSubmitButton.click();
-            await driver.manage().setTimeouts({ implicit: 2000 });
+            await driver.manage().setTimeouts({ implicit: waitTime });
             // check if error box appears 
             let elems = await driver.findElement(By.className('Toastify'));
             let insideElems = await elems.findElement(By.className('Toastify__toast-container'));
@@ -83,7 +83,7 @@ async function checkRegisterPage(result) {
         try{
             let createAccountBtn = await driver.findElement(By.css('a[href="/register"]'));
             let clickResult = createAccountBtn.click();
-            await driver.manage().setTimeouts({ implicit: 2000 });
+            await driver.manage().setTimeouts({ implicit: waitTime });
             // now look for a username input
             let inputUsername  = await driver.findElement(By.css('input[name="username"]'));
             if(inputUsername != null){
@@ -103,7 +103,7 @@ async function loginPageFromRegister(result){
     try{
         let loginButton = await driver.findElement(By.css('a[href="/login"]'));
         let clickResult = await loginButton.click();
-        await driver.manage().setTimeouts({implicit: 2000});
+        await driver.manage().setTimeouts({implicit: waitTime});
 
         let loginSubmitButton = await driver.findElement(By.css('button[type="submit"]'));
         if( loginSubmitButton != null){

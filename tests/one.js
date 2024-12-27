@@ -133,7 +133,8 @@ async function loginPageFromRegister(result) {
     try {
         let loginButton = await driver.findElement(By.css('a[href="/login"]'));
         console.log("Waiting for login to be clickable...");
-        await driver.wait(until.elementIsVisible(loginButton), 5000);
+        await driver.wait(until.elementIsVisible(loginButton), 1000);
+        await driver.wait(until.elementIsEnabled(loginButton), 1000)
         console.log("Can click the login link now!");
         let clickResult = await loginButton.click();
         await driver.manage().setTimeouts({ implicit: waitTime });
